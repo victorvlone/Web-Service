@@ -46,4 +46,13 @@ public class Order {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> items = new ArrayList<>();
+
+    public Double total(){
+        Double total = 0.0;
+        for (OrderItem itemsPrice : items) {
+            total += itemsPrice.subtotal();
+        }
+
+        return total;
+    }
 }
