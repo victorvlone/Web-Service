@@ -28,15 +28,23 @@ public class OrderItem {
     @Column(name = "price")
     private Double price;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
-
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
-
     public Double subtotal(){
         return quantity * price;
+    }
+
+    public void setOrder(Order order) {
+        id.setOrder(order);
+    }
+
+    public Order getOrder() {
+        return id.getOrder();
+    }
+
+    public void setProduct(Product product) {
+        id.setProduct(product);
+    }
+
+    public Product getProduct() {
+        return id.getProduct();
     }
 }

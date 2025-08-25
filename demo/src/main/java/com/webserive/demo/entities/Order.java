@@ -26,7 +26,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 public class Order {
 
     @Id
@@ -44,7 +44,7 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User client;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "id.order", cascade = CascadeType.ALL)
     private List<OrderItem> items = new ArrayList<>();
 
     public Double total(){

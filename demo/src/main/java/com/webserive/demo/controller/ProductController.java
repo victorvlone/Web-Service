@@ -10,18 +10,17 @@ import com.webserive.demo.DTO.ProductDTO;
 import com.webserive.demo.entities.Product;
 import com.webserive.demo.services.ProductService;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-
 
 @RestController
 @RequestMapping("/products")
+@CrossOrigin("*")
 public class ProductController {
 
     @Autowired
@@ -31,7 +30,7 @@ public class ProductController {
     public ResponseEntity<?> newProduct(@RequestBody ProductDTO dto) {
         try {
             Product product = productService.newProduct(dto);
-            return ResponseEntity.ok().body("Produto cadastrado com sucesso: " + product);
+            return ResponseEntity.ok().body("Produto cadastrado com sucesso: " + product.getName());
         } catch (RuntimeException e) {
             return ResponseEntity.status(404).body("Erro ao cadastrar produto: " + e.getMessage());
         }
@@ -58,7 +57,7 @@ public class ProductController {
     }
 
     @GetMapping("/byCategory")
-    public ResponseEntity<?> productsByCategory(@RequestBody String category) {
+    public ResponseEntity<?> productsByCategory(@RequestBody String category) throws Exception {
         try {
             List<Product> products = productService.productsByCategory(category);
             return ResponseEntity.ok().body(products);

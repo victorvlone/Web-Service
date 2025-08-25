@@ -7,13 +7,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.webserive.demo.entities.Category;
 import com.webserive.demo.services.CategoryService;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @RestController
+@RequestMapping("/category")
+@CrossOrigin("*")
 public class CategoryController {
 
     @Autowired
@@ -23,7 +27,7 @@ public class CategoryController {
     public ResponseEntity<?> newCategory(@RequestBody String name) {
         try {
             Category category = categoryService.createCategory(name);
-            return ResponseEntity.status(201).body("Categoria criada com sucesso: " + category);
+            return ResponseEntity.status(201).body("Categoria criada com sucesso: " + category.getName());
         } catch (RuntimeException e) {
             return ResponseEntity.status(404).body("erro ao criar categoria");
         }

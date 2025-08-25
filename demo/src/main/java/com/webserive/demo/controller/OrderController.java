@@ -8,12 +8,16 @@ import com.webserive.demo.DTO.OrderDTO;
 import com.webserive.demo.entities.Order;
 import com.webserive.demo.services.OrderService;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
+@RequestMapping("/order")
+@CrossOrigin("*")
 public class OrderController {
 
     @Autowired
@@ -23,7 +27,7 @@ public class OrderController {
     public ResponseEntity<?> newOrder(@RequestBody OrderDTO dto) {
         try {
             Order newOrder = orderService.newOrder(dto);
-            return ResponseEntity.status(201).body("Pedido criado: " + newOrder);
+            return ResponseEntity.status(201).body("Pedido criado: " + newOrder.getId());
         } catch (RuntimeException e) {
             return ResponseEntity.status(404).body("Erro ao criar pedido: " + e.getMessage());
         }
